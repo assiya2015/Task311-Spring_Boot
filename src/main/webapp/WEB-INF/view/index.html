@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    body {
+        padding: 30px;
+    }
+</style>
+    <title>Users</title>
+</head>
+<body>
+        <p class="navbar-header">
+            Who is it? And What is role?
+            <p class="text-right">
+                <a th:href="@{/logout}" method="POST">
+                    Logout
+                </a>
+            </p>
+        </p>
+<div class="row">
+    <div class="col-lg-2">
+        <p>Admin</p>
+        <p>User</p>
+    </div>
+
+
+<!--    <div>-->
+<!--        <ul class="navbar-nav">-->
+<!--            <li class="active"><a href="#">Users table</a> </li>-->
+<!--            <li><a href="#">New User</a> </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+    <div class="col-lg-10">
+        <h1>Admin panel</h1>
+
+            All users
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, state : ${users}">
+                    <td th:utext="${user.id}">ID</td>
+                    <td th:utext="${user.firstName}">First Name</td>
+                    <td th:utext="${user.lastName}">Last Name</td>
+                    <td th:utext="${user.username}">Username</td>
+                    <td th:utext="${user.password}">Password</td>
+                    <td th:utext="${user.getRoleName()}">Role</td>
+                    <td><form th:method="GET" th:action="@{/admin/{id}(id=${user.id})}">
+                        <input type="submit" class ="btn-info" value="Edit"/>
+                    </form>
+                    </td>
+                    <td><form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.id})}">
+                        <input type="submit" class = "btn-danger" value="Delete"/>
+                    </form></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="new.html" th:href="@{/admin/new}">Create new user</a>
+    </div>
+</div>
+
+<!--Для активации плагинов -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
